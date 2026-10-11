@@ -12,6 +12,11 @@ int main()
 
     //we open the file to get the data
     FILE *fp=fopen("countries.txt","r");
+    if (fp == NULL)
+    {
+        perror("Could not open countries.txt");
+        return EXIT_FAILURE;
+    }
     struct tree* root=deserialize(fp);
     //we close the file
     fclose(fp);
@@ -27,7 +32,6 @@ int main()
     printf("Is it right?(y/n)\n");
     confirming_country:
     scanf(" %c",&choice);
-    fflush(stdin);
 
     if(choice=='y'||choice=='Y')
     {
@@ -47,12 +51,17 @@ int main()
 
     printf("Do you want to play again?(y/n)\n");
     playing_again:
-    scanf("%c",&choice);
-    fflush(stdin);
+    scanf(" %c",&choice);
     if(choice=='y'||choice=='Y')
     {
         //we get the binary tree from the countries text file
         FILE *fp=fopen("countries.txt","r");
+        if (fp == NULL)
+        {
+            perror("Could not reopen countries.txt");
+            cleanUp(root);
+            return EXIT_FAILURE;
+        }
         root= deserialize(fp);
         fclose(fp);
         goto beginning;

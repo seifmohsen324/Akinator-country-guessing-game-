@@ -23,11 +23,16 @@ void learn(tree* current,tree* root)
     char question[100];
 
     printf("Enter the right country.\n");
-    gets(country);
-    //the fflush is used to clear the stdin buffer
-    fflush(stdin);
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF) {}
+    if (fgets(country, sizeof(country), stdin) == NULL)
+        return;
+    country[strcspn(country, "\r\n")] = '\0';
+
     printf("Enter the question you would like to be asked for your country.\n");
-    gets(question);
+    if (fgets(question, sizeof(question), stdin) == NULL)
+        return;
+    question[strcspn(question, "\r\n")] = '\0';
 
     //here we will add the new country
     current->right= newNode(current->data);

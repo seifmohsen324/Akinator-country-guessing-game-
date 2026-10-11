@@ -59,10 +59,8 @@ tree* play(tree* root)
     while(current->left!=NULL&&current->right!=NULL)
     {
         printf("%s(y/n)\n",current->data);
-        fflush(stdin);
         k:
         scanf(" %c",&choice);
-        fflush(stdin);
 
         if(choice=='y'||choice=='Y')
         {
